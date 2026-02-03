@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anjali 💖 Valentine</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    height:100vh;
+    background:linear-gradient(180deg,#ff9a9e,#fad0c4);
+    font-family:'Comic Sans MS',cursive;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+.reel{
+    width:100%;
+    max-width:390px;
+    height:100vh;
+    position:relative;
+}
+.bg{
+    position:absolute;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    z-index:0;
+}
+.float{
+    position:absolute;
+    font-size:26px;
+    animation:floatUp 10s linear infinite;
+    opacity:0.8;
+}
+@keyframes floatUp{
+    from{transform:translateY(100vh);opacity:0}
+    to{transform:translateY(-120vh);opacity:1}
+}
+.card{
+    position:relative;
+    z-index:1;
+    margin:40px 20px;
+    background:white;
+    border-radius:30px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 15px 35px rgba(0,0,0,0.25);
+}
+h1{color:#ff4d6d}
+p{color:#444;font-size:18px;line-height:1.5}
+.buttons{position:relative;height:60px}
+button{
+    padding:10px 22px;
+    border:none;
+    border-radius:25px;
+    font-size:16px;
+    cursor:pointer;
+}
+#yesBtn{background:#ff4d6d;color:white}
+#noBtn{
+    background:#eee;
+    position:absolute;
+    left:120px;
+}
+.hidden{display:none}
+
+/* hearts */
+.heart{
+    position:absolute;
+    font-size:22px;
+    animation:heartUp 4s linear;
+}
+@keyframes heartUp{
+    from{transform:translateY(0);opacity:1}
+    to{transform:translateY(-600px);opacity:0}
+}
+
+/* teddy pop */
+.teddy{
+    position:fixed;
+    bottom:-120px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:80px;
+    animation:teddyPop 2.5s ease forwards;
+    z-index:5;
+}
+@keyframes teddyPop{
+    0%{bottom:-120px;opacity:0}
+    40%{bottom:20px;opacity:1}
+    70%{bottom:10px}
+    100%{bottom:-140px;opacity:0}
+}
+
+/* cute no animation */
+.noAnim{
+    animation:noBounce 1s ease;
+}
+@keyframes noBounce{
+    0%{transform:scale(0.8);opacity:0}
+    60%{transform:scale(1.05);opacity:1}
+    100%{transform:scale(1)}
+}
+
+.ring{font-size:60px}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Marathi Romantic Background Music -->
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="reel">
+<div class="bg" id="bg"></div>
+
+<div class="card">
+<h1>Anjali 💖</h1>
+
+<p id="question">Tu majhi Valentine banshil ka? 🌸</p>
+
+<div class="buttons" id="buttons">
+    <button id="yesBtn" onclick="yesClicked()">Yes 💕</button>
+    <button id="noBtn" onclick="noClicked()" onmouseover="moveNo()">No 😊</button>
+</div>
+
+<!-- NO MESSAGE -->
+<div id="noMsg" class="hidden">
+<p>
+🌸 Ek choti si kavita 🌸<br><br>
+“Na bolnyat pan ek gammat aste,<br>
+jar samorcha man samjun gheto” 🧸💗<br><br>
+
+Kahi ghai nahi,<br>
+apan ajun navin ahot 😊<br>
+Tu jashi comfortable ahes<br>
+tasa sagla perfect aahe 💐
+</p>
+</div>
+
+<!-- YES MESSAGE -->
+<div id="romantic" class="hidden">
+<p>
+Anjali 💗<br><br>
+He fakt ek fun prashna hota 😄  
+pan tyatun ek choti feeling nighali ✨  
+
+Apan ajun navin ahot,<br>
+pan tuzi presence already<br>
+khup pleasant aahe 🌸
+</p>
+<button onclick="showSurprise()" style="background:#ff4d6d;color:white">
+Thoda ajun 💌
+</button>
+</div>
+
+<!-- SURPRISE -->
+<div id="surprise" class="hidden">
+<p>
+💌 Chota sa honest message 💌<br><br>
+Kadhi kadhi kahi goshti<br>
+slow start zalyavarach<br>
+khup sundar hotat 🌼  
+
+No pressure,<br>
+no expectations…<br>
+fakt thodi curiosity 💗
+</p>
+<button onclick="showRing()" style="background:#ff4d6d;color:white">
+Aakhri ek 😊
+</button>
+</div>
+
+<!-- FINAL MESSAGE -->
+<div id="ringBox" class="hidden">
+<div class="ring">💍</div>
+<p>
+Anjali 💗<br><br>
+He ring ek promise nahi,<br>
+fakt ek cute moment aahe 😌  
+
+Apan ajun ekmekanna<br>
+nit olkhu laglo ahot,<br>
+pan tuzi simplicity ani smile<br>
+already ek changli feeling detat 🌸  
+
+Jar tu hasli asel,<br>
+tar he website successful aahe 💐  
+Always smile 😊
+</p>
+</div>
+
+</div>
+</div>
+
+<script>
+/* background emojis */
+const bg=document.getElementById("bg");
+const items=["🧸","🌸","🌹","💐","🎀"];
+for(let i=0;i<20;i++){
+    let s=document.createElement("span");
+    s.className="float";
+    s.innerText=items[Math.floor(Math.random()*items.length)];
+    s.style.left=Math.random()*100+"vw";
+    s.style.animationDuration=(Math.random()*5+6)+"s";
+    bg.appendChild(s);
+}
+
+/* music */
+function playMusic(){
+    document.getElementById("music").play();
+}
+
+/* no hover texts */
+let texts=[
+    "Arre shant shant 😄",
+    "Evdhya lavkar nahi 🧸",
+    "Tu smile keli tari enough 💗",
+    "Pressure bilkul nahi 🌸"
+];
+let i=0;
+
+function moveNo(){
+    document.getElementById("noBtn").style.transform=
+    `translate(${Math.random()*200-100}px,${Math.random()*40}px)`;
+    document.getElementById("question").innerText=texts[i++%texts.length];
+    playMusic();
+}
+
+/* NO CLICK */
+function noClicked(){
+    const msg=document.getElementById("noMsg");
+    msg.classList.remove("hidden");
+    msg.classList.add("noAnim");
+    teddyPop();
+    hearts();
+    playMusic();
+}
+
+/* YES FLOW */
+function yesClicked(){
+    document.getElementById("buttons").classList.add("hidden");
+    document.getElementById("question").classList.add("hidden");
+    document.getElementById("romantic").classList.remove("hidden");
+    hearts(); playMusic();
+}
+function showSurprise(){
+    document.getElementById("romantic").classList.add("hidden");
+    document.getElementById("surprise").classList.remove("hidden");
+    hearts();
+}
+function showRing(){
+    document.getElementById("surprise").classList.add("hidden");
+    document.getElementById("ringBox").classList.remove("hidden");
+    hearts();
+}
+
+/* teddy pop */
+function teddyPop(){
+    let t=document.createElement("div");
+    t.className="teddy";
+    t.innerText="🧸";
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),2500);
+}
+
+/* hearts */
+function hearts(){
+    for(let i=0;i<12;i++){
+        let h=document.createElement("div");
+        h.className="heart";
+        h.innerText="💖";
+        h.style.left=Math.random()*100+"vw";
+        h.style.top="100vh";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),4000);
+    }
+}
+</script>
+
+</body>
+</html>
