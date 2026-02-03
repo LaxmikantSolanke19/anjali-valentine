@@ -59,6 +59,7 @@ button{
     border-radius:25px;
     font-size:16px;
     cursor:pointer;
+    touch-action: manipulation;
 }
 #yesBtn{background:#ff4d6d;color:white}
 #noBtn{
@@ -112,9 +113,9 @@ button{
 
 <body>
 
-<!-- 🎵 Marathi Romantic Background Music -->
+<!-- 🎵 Marathi Romantic Music -->
 <audio id="music" loop>
-    <source src="music.mp3" type="audio/mpeg">
+    <source src="https://pagalworld.com.se/files/download/id/6477" type="audio/mpeg">
 </audio>
 
 <div class="reel">
@@ -127,7 +128,7 @@ button{
 
 <div class="buttons" id="buttons">
     <button id="yesBtn" onclick="yesClicked()">Yes 💕</button>
-    <button id="noBtn" onclick="noClicked()" onmouseover="moveNo()">No 😊</button>
+    <button id="noBtn">No 😊</button>
 </div>
 
 <!-- NO MESSAGE -->
@@ -136,11 +137,8 @@ button{
 🌸 Ek choti si kavita 🌸<br><br>
 “Na bolnyat pan ek gammat aste,<br>
 jar samorcha man samjun gheto” 🧸💗<br><br>
-
 Kahi ghai nahi,<br>
-apan ajun navin ahot 😊<br>
-Tu jashi comfortable ahes<br>
-tasa sagla perfect aahe 💐
+apan ajun navin ahot 😊
 </p>
 </div>
 
@@ -148,9 +146,6 @@ tasa sagla perfect aahe 💐
 <div id="romantic" class="hidden">
 <p>
 Anjali 💗<br><br>
-He fakt ek fun prashna hota 😄  
-pan tyatun ek choti feeling nighali ✨  
-
 Apan ajun navin ahot,<br>
 pan tuzi presence already<br>
 khup pleasant aahe 🌸
@@ -164,13 +159,8 @@ Thoda ajun 💌
 <div id="surprise" class="hidden">
 <p>
 💌 Chota sa honest message 💌<br><br>
-Kadhi kadhi kahi goshti<br>
-slow start zalyavarach<br>
-khup sundar hotat 🌼  
-
-No pressure,<br>
-no expectations…<br>
-fakt thodi curiosity 💗
+Slow start sometimes feels better 🌼  
+No pressure… no expectations 💗
 </p>
 <button onclick="showRing()" style="background:#ff4d6d;color:white">
 Aakhri ek 😊
@@ -182,14 +172,7 @@ Aakhri ek 😊
 <div class="ring">💍</div>
 <p>
 Anjali 💗<br><br>
-He ring ek promise nahi,<br>
-fakt ek cute moment aahe 😌  
-
-Apan ajun ekmekanna<br>
-nit olkhu laglo ahot,<br>
-pan tuzi simplicity ani smile<br>
-already ek changli feeling detat 🌸  
-
+He fakt ek cute moment hota 😌  
 Jar tu hasli asel,<br>
 tar he website successful aahe 💐  
 Always smile 😊
@@ -217,30 +200,27 @@ function playMusic(){
     document.getElementById("music").play();
 }
 
-/* no hover texts */
+/* NO texts */
 let texts=[
-    "Arre shant shant 😄",
+    "Arre shant 😄",
     "Evdhya lavkar nahi 🧸",
     "Tu smile keli tari enough 💗",
     "Pressure bilkul nahi 🌸"
 ];
-let i=0;
+let ti=0;
 
 function moveNo(){
-    document.getElementById("noBtn").style.transform=
-    `translate(${Math.random()*200-100}px,${Math.random()*40}px)`;
-    document.getElementById("question").innerText=texts[i++%texts.length];
+    const no=document.getElementById("noBtn");
+    no.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*40}px)`;
+    document.getElementById("question").innerText=texts[ti++%texts.length];
     playMusic();
 }
 
 /* NO CLICK */
 function noClicked(){
-    const msg=document.getElementById("noMsg");
-    msg.classList.remove("hidden");
-    msg.classList.add("noAnim");
-    teddyPop();
-    hearts();
-    playMusic();
+    document.getElementById("noMsg").classList.remove("hidden");
+    document.getElementById("noMsg").classList.add("noAnim");
+    teddyPop(); hearts(); playMusic();
 }
 
 /* YES FLOW */
@@ -261,7 +241,7 @@ function showRing(){
     hearts();
 }
 
-/* teddy pop */
+/* teddy */
 function teddyPop(){
     let t=document.createElement("div");
     t.className="teddy";
@@ -282,6 +262,15 @@ function hearts(){
         setTimeout(()=>h.remove(),4000);
     }
 }
+
+/* MOBILE + DESKTOP FIX */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",e=>{
+    e.preventDefault();
+    moveNo();
+});
+noBtn.addEventListener("click",noClicked);
 </script>
 
 </body>
