@@ -1,147 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Be My Valentine 💖</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Poppins', sans-serif;
-      color: #fff;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anjali 💖 Valentine</title>
 
-    .box {
-      background: rgba(255,255,255,0.15);
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;height:100vh;
+ background:linear-gradient(180deg,#ff9a9e,#fad0c4);
+ font-family:'Comic Sans MS',cursive;
+ display:flex;justify-content:center;align-items:center;
+ overflow:hidden;
+}
+.reel{width:100%;max-width:390px;height:100vh;position:relative}
+.bg{position:absolute;width:100%;height:100%;z-index:0}
+.float{position:absolute;font-size:26px;animation:floatUp 8s linear infinite;opacity:.85}
+@keyframes floatUp{
+ from{transform:translateY(100vh);opacity:0}
+ to{transform:translateY(-120vh);opacity:1}
+}
+.card{
+ position:relative;z-index:1;margin:40px 20px;
+ background:#fff;border-radius:30px;padding:25px;
+ text-align:center;box-shadow:0 15px 35px rgba(0,0,0,.25)
+}
+h1{color:#ff4d6d}
+p{color:#444;font-size:18px;line-height:1.55}
+.buttons{position:relative;height:60px}
+button{
+ padding:10px 22px;border:none;border-radius:25px;
+ font-size:16px;cursor:pointer
+}
+#yesBtn{background:#ff4d6d;color:#fff}
+#noBtn{background:#eee;position:absolute;left:120px}
+.hidden{display:none}
 
-    h1 {
-      margin-bottom: 25px;
-      font-size: 28px;
-    }
-
-    button {
-      padding: 12px 30px;
-      margin: 10px;
-      font-size: 18px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    #yes {
-      background: #00e676;
-      color: #000;
-    }
-
-    #no {
-      background: #ff1744;
-      color: #fff;
-    }
-
-    button:hover {
-      transform: scale(1.1);
-    }
-
-    #msg {
-      margin-top: 20px;
-      font-size: 20px;
-      min-height: 30px;
-    }
-
-    .heart {
-      position: absolute;
-      font-size: 24px;
-      animation: float 4s linear infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-600px); opacity: 0; }
-    }
-  </style>
+/* effects */
+.heart{position:absolute;font-size:22px;animation:heartUp 4s linear}
+@keyframes heartUp{
+ from{transform:translateY(0);opacity:1}
+ to{transform:translateY(-600px);opacity:0}
+}
+.teddy{
+ position:fixed;bottom:-120px;left:50%;
+ transform:translateX(-50%);font-size:80px;
+ animation:teddyPop 2.2s ease forwards;z-index:5
+}
+@keyframes teddyPop{
+ 0%{bottom:-120px;opacity:0}
+ 40%{bottom:20px;opacity:1}
+ 100%{bottom:-140px;opacity:0}
+}
+.ring{font-size:60px}
+</style>
 </head>
+
 <body>
 
-  <audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+<!-- 🎵 BG MUSIC – MOBILE FIX -->
+<audio id="music" loop muted autoplay playsinline>
+ <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-  <div class="box">
-    <h1>Will you be my Valentine? 💕</h1>
-    <button id="yes">Yes 😍</button>
-    <button id="no">No 🙈</button>
-    <div id="msg"></div>
-  </div>
+<div class="reel">
+<div class="bg" id="bg"></div>
 
-  <script>
-    const music = document.getElementById("bgMusic");
-    const msg = document.getElementById("msg");
+<div class="card">
+<h1>Anjali 💖</h1>
 
-    const noMessages = [
-      "Arey yaar 😢 असा काय करतोस?",
-      "इतक्या लवकर No? 💔",
-      "Think again naa 🥺",
-      "माझं heart तुटतंय 💘",
-      "एकदा Yes करून बघ 😏",
-      "इतका भाव खाऊ नकोस 😭",
-      "Pleaseeee 🥹",
-      "Okay पण मला वाईट वाटलं 😔"
-    ];
+<p id="question">Tu majhi Valentine banshil ka? 🌸</p>
 
-    let usedMessages = [];
+<div class="buttons" id="buttons">
+ <button id="yesBtn">Yes 💕</button>
+ <button id="noBtn">No 😊</button>
+</div>
 
-    function playMusic() {
-      if (music.paused) {
-        music.play().catch(() => {});
-      }
-    }
+<div id="noMsg" class="hidden"><p id="noText"></p></div>
 
-    function createHearts() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "💖";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.bottom = "0px";
-      document.body.appendChild(heart);
+<div id="romantic" class="hidden">
+<p>
+Anjali 💗<br><br>
+He ek cute sa prashna hota 😄<br>
+kahi ghai nahi 🌸
+</p>
+<button onclick="showSurprise()" style="background:#ff4d6d;color:#fff">
+Thoda ajun 💌
+</button>
+</div>
 
-      setTimeout(() => {
-        heart.remove();
-      }, 4000);
-    }
+<div id="surprise" class="hidden">
+<p>
+Sometimes slow moments feel the warmest 💗
+</p>
+<button onclick="showRing()" style="background:#ff4d6d;color:#fff">
+Ek last 😊
+</button>
+</div>
 
-    document.getElementById("yes").addEventListener("click", () => {
-      playMusic();
-      msg.innerHTML = "Yayyy! 💕 I knew it 😍💖";
-      setInterval(createHearts, 300);
-    });
+<div id="ringBox" class="hidden">
+<div class="ring">💍</div>
+<p>
+Anjali 💗<br><br>
+Aapan ajun ekmekanna olkhu laglo ahot,<br>
+pan hya chotya moments madhech<br>
+ek vegli comfort feel hote 🌸<br><br>
 
-    document.getElementById("no").addEventListener("click", () => {
-      playMusic();
+Jar tu he vachun ek choti smile dili asel,<br>
+tar majha moment khup special zhala 💗
+</p>
+</div>
 
-      if (usedMessages.length === noMessages.length) {
-        usedMessages = [];
-      }
+</div>
+</div>
 
-      let randomMsg;
-      do {
-        randomMsg = noMessages[Math.floor(Math.random() * noMessages.length)];
-      } while (usedMessages.includes(randomMsg));
+<script>
+/* emojis */
+const bg=document.getElementById("bg");
+["🧸","🌸","💐","🎀"].forEach(e=>{
+ for(let i=0;i<6;i++){
+  let s=document.createElement("span");
+  s.className="float";s.innerText=e;
+  s.style.left=Math.random()*100+"vw";
+  s.style.animationDuration=(Math.random()*4+5)+"s";
+  bg.appendChild(s);
+ }
+});
 
-      usedMessages.push(randomMsg);
-      msg.innerHTML = randomMsg;
-    });
-  </script>
+/* MUSIC UNMUTE ON FIRST TOUCH */
+const music=document.getElementById("music");
+function enableMusic(){
+ music.muted=false;
+ music.play().catch(()=>{});
+ document.removeEventListener("touchstart",enableMusic);
+ document.removeEventListener("click",enableMusic);
+}
+document.addEventListener("touchstart",enableMusic,{once:true});
+document.addEventListener("click",enableMusic,{once:true});
+
+/* NO messages */
+const noBtn=document.getElementById("noBtn");
+const noLines=[
+ "Tu comfortable ahes te important aahe 😊",
+ "Ghai nako 🌸 apan ajun navin ahot",
+ "Na bolnyat pan softness aste 💗",
+ "Tuzi smile enough aahe 🧸",
+ "Pressure bilkul nahi 🌼",
+ "Haluhalu goshti jultat 💞",
+ "Tu jashi ahes tashi perfect aahe 😊",
+ "Fakt ek cute moment 🌸"
+];
+let ni=0;
+
+function moveNo(){
+ noBtn.style.transform=`translate(${Math.random()*140-70}px,${Math.random()*30}px)`;
+ document.getElementById("question").innerText=noLines[ni++%noLines.length];
+}
+
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",e=>{e.preventDefault();moveNo();});
+noBtn.addEventListener("click",()=>{
+ document.getElementById("noMsg").classList.remove("hidden");
+ document.getElementById("noText").innerText=noLines[(ni-1)%noLines.length];
+ teddy();hearts();
+});
+
+/* YES flow */
+yesBtn.onclick=()=>{
+ buttons.classList.add("hidden");
+ question.classList.add("hidden");
+ romantic.classList.remove("hidden");
+ hearts();
+}
+function showSurprise(){
+ romantic.classList.add("hidden");
+ surprise.classList.remove("hidden");
+ hearts();
+}
+function showRing(){
+ surprise.classList.add("hidden");
+ ringBox.classList.remove("hidden");
+ hearts();
+}
+
+/* effects */
+function teddy(){
+ let t=document.createElement("div");
+ t.className="teddy";t.innerText="🧸";
+ document.body.appendChild(t);
+ setTimeout(()=>t.remove(),2200);
+}
+function hearts(){
+ for(let i=0;i<8;i++){
+  let h=document.createElement("div");
+  h.className="heart";h.innerText="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.top="100vh";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),4000);
+ }
+}
+</script>
 
 </body>
 </html>
