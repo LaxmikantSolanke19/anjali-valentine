@@ -137,8 +137,11 @@ button{
 🌸 Ek choti si kavita 🌸<br><br>
 “Na bolnyat pan ek gammat aste,<br>
 jar samorcha man samjun gheto” 🧸💗<br><br>
+
 Kahi ghai nahi,<br>
-apan ajun navin ahot 😊
+apan ajun navin ahot 😊<br>
+Tu jashi comfortable ahes<br>
+tasa sagla perfect aahe 💐
 </p>
 </div>
 
@@ -146,6 +149,9 @@ apan ajun navin ahot 😊
 <div id="romantic" class="hidden">
 <p>
 Anjali 💗<br><br>
+He fakt ek fun prashna hota 😄<br>
+pan tyatun ek choti feeling nighali ✨<br><br>
+
 Apan ajun navin ahot,<br>
 pan tuzi presence already<br>
 khup pleasant aahe 🌸
@@ -159,8 +165,13 @@ Thoda ajun 💌
 <div id="surprise" class="hidden">
 <p>
 💌 Chota sa honest message 💌<br><br>
-Slow start sometimes feels better 🌼  
-No pressure… no expectations 💗
+Kadhi kadhi kahi goshti<br>
+slow start zalyavarach<br>
+khup sundar hotat 🌼<br><br>
+
+No pressure,<br>
+no expectations…<br>
+fakt thodi curiosity 💗
 </p>
 <button onclick="showRing()" style="background:#ff4d6d;color:white">
 Aakhri ek 😊
@@ -172,10 +183,19 @@ Aakhri ek 😊
 <div class="ring">💍</div>
 <p>
 Anjali 💗<br><br>
-He fakt ek cute moment hota 😌  
-Jar tu hasli asel,<br>
-tar he website successful aahe 💐  
-Always smile 😊
+
+Jar tu hasli asel ek second sathi suddha,<br>
+tar majha purpose already complete zhala aahe 🌸<br><br>
+
+Apan ajun ekmekanna olkhu laglo ahot,<br>
+pan hya chotya chotya moments madhech<br>
+kadhi kadhi khup sundar feelings laplelya astat 💗<br><br>
+
+Kahi hi ghadavaychi ghai nahi,<br>
+fakt asa watla ki tu he pahav,<br>
+ani thodi si smile karav 🌼<br><br>
+
+Take care Anjali 😊
 </p>
 </div>
 
@@ -200,9 +220,9 @@ function playMusic(){
     document.getElementById("music").play();
 }
 
-/* NO texts */
+/* NO hover texts */
 let texts=[
-    "Arre shant 😄",
+    "Arre shant shant 😄",
     "Evdhya lavkar nahi 🧸",
     "Tu smile keli tari enough 💗",
     "Pressure bilkul nahi 🌸"
@@ -218,9 +238,12 @@ function moveNo(){
 
 /* NO CLICK */
 function noClicked(){
-    document.getElementById("noMsg").classList.remove("hidden");
-    document.getElementById("noMsg").classList.add("noAnim");
-    teddyPop(); hearts(); playMusic();
+    const msg=document.getElementById("noMsg");
+    msg.classList.remove("hidden");
+    msg.classList.add("noAnim");
+    teddyPop();
+    hearts();
+    playMusic();
 }
 
 /* YES FLOW */
@@ -241,7 +264,7 @@ function showRing(){
     hearts();
 }
 
-/* teddy */
+/* teddy pop */
 function teddyPop(){
     let t=document.createElement("div");
     t.className="teddy";
