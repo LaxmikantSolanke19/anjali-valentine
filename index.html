@@ -29,7 +29,7 @@ body{
     z-index:10;
 }
 .startBtn{
-    padding:15px 30px;
+    padding:12px 22px;
     font-size:20px;
     border:none;
     border-radius:30px;
@@ -37,30 +37,21 @@ body{
     color:white;
     cursor:pointer;
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    white-space:nowrap;
+    width:auto;
 }
 
+/* card */
 .reel{
     width:100%;
     max-width:390px;
     height:100vh;
     position:relative;
-}
-.bg{
-    position:absolute;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    z-index:0;
-}
-.float{
-    position:absolute;
-    font-size:26px;
-    animation:floatUp 10s linear infinite;
-    opacity:0.8;
-}
-@keyframes floatUp{
-    from{transform:translateY(100vh);opacity:0}
-    to{transform:translateY(-120vh);opacity:1}
 }
 .card{
     position:relative;
@@ -74,9 +65,18 @@ body{
 }
 h1{color:#ff4d6d}
 p{color:#444;font-size:18px;line-height:1.5}
-.buttons{position:relative;height:60px}
+
+/* buttons */
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:20px;
+    position:relative;
+}
 button{
-    padding:10px 22px;
+    width:110px;
+    padding:12px 0;
     border:none;
     border-radius:25px;
     font-size:16px;
@@ -85,9 +85,10 @@ button{
 #yesBtn{background:#ff4d6d;color:white}
 #noBtn{
     background:#eee;
-    position:absolute;
-    left:120px;
+    position:relative;
+    transition:0.15s;
 }
+
 .hidden{display:none}
 
 /* hearts */
@@ -101,7 +102,7 @@ button{
     to{transform:translateY(-600px);opacity:0}
 }
 
-/* teddy pop */
+/* teddy */
 .teddy{
     position:fixed;
     bottom:-120px;
@@ -116,15 +117,6 @@ button{
     40%{bottom:20px;opacity:1}
     70%{bottom:10px}
     100%{bottom:-140px;opacity:0}
-}
-
-.noAnim{
-    animation:noBounce 1s ease;
-}
-@keyframes noBounce{
-    0%{transform:scale(0.8);opacity:0}
-    60%{transform:scale(1.05);opacity:1}
-    100%{transform:scale(1)}
 }
 
 .ring{font-size:60px}
@@ -144,8 +136,6 @@ button{
 </audio>
 
 <div class="reel">
-<div class="bg" id="bg"></div>
-
 <div class="card">
 <h1>Anjali 💖</h1>
 
@@ -157,19 +147,56 @@ button{
 </div>
 
 <div id="noMsg" class="hidden">
-<p>Tu jashi comfortable ahes, tasa sagla perfect aahe 💐</p>
+<p id="noText"></p>
 </div>
 
 <div id="romantic" class="hidden">
-<p>Tuzi presence khup pleasant aahe 🌸</p>
-<button onclick="showRing()" style="background:#ff4d6d;color:white">
+<p>
+Anjali 💗<br><br>
+He fakt ek fun prashna hota 😄  
+pan tyatun ek choti feeling nighali ✨  
+
+Apan ajun navin ahot,<br>
+pan tuzi presence already<br>
+khup pleasant aahe 🌸
+</p>
+<button onclick="showSurprise()" style="background:#ff4d6d;color:white">
 Thoda ajun 💌
+</button>
+</div>
+
+<div id="surprise" class="hidden">
+<p>
+💌 Chota sa honest message 💌<br><br>
+Kadhi kadhi kahi goshti<br>
+slow start zalyavarach<br>
+khup sundar hotat 🌼  
+
+No pressure,<br>
+no expectations…<br>
+fakt thodi curiosity 💗
+</p>
+<button onclick="showRing()" style="background:#ff4d6d;color:white">
+Aakhri ek 😊
 </button>
 </div>
 
 <div id="ringBox" class="hidden">
 <div class="ring">💍</div>
-<p>Always smile 😊</p>
+<p>
+Anjali 💗<br><br>
+He ring ek promise nahi,<br>
+fakt ek cute moment aahe 😌  
+
+Apan ajun ekmekanna<br>
+nit olkhu laglo ahot,<br>
+pan tuzi simplicity ani smile<br>
+already ek changli feeling detat 🌸  
+
+Jar tu hasli asel,<br>
+tar ha moment perfect zala 💐  
+Always smile 😊
+</p>
 </div>
 
 </div>
@@ -178,31 +205,39 @@ Thoda ajun 💌
 <script>
 const music=document.getElementById("music");
 
-/* start site + play music */
 function startSite(){
     document.getElementById("startScreen").style.display="none";
     music.play().catch(()=>{});
 }
 
-/* background emojis */
-const bg=document.getElementById("bg");
-const items=["🧸","🌸","🌹","💐","🎀"];
-for(let i=0;i<20;i++){
-    let s=document.createElement("span");
-    s.className="float";
-    s.innerText=items[Math.floor(Math.random()*items.length)];
-    s.style.left=Math.random()*100+"vw";
-    s.style.animationDuration=(Math.random()*5+6)+"s";
-    bg.appendChild(s);
-}
+/* cute no messages */
+let noMessages=[
+"Arre itka serious nako gheu 😄",
+"Thoda smile kelis tari chaleel 🌸",
+"Pressure bilkul nahi re 😊",
+"Tu comfortable asne important aahe 💗",
+"Apan ajun olakh vadhvaychi aahe 🧸",
+"Friendship pan khup special aste 🌼",
+"Smile kar, te best answer aahe 😌",
+"Kadhi kadhi no pan cute asta 🌸"
+];
+let n=0;
 
 function moveNo(){
-    document.getElementById("noBtn").style.transform=
-    `translate(${Math.random()*200-100}px,${Math.random()*40}px)`;
+    const btn=document.getElementById("noBtn");
+    btn.style.transform=
+    `translate(${Math.random()*200-100}px,${Math.random()*60-30}px)`;
+
+    document.getElementById("question").innerText=
+    noMessages[n++%noMessages.length];
 }
 
 function noClicked(){
-    document.getElementById("noMsg").classList.remove("hidden");
+    const msg=document.getElementById("noMsg");
+    msg.classList.remove("hidden");
+    document.getElementById("noText").innerText=
+    "Tu jashi comfortable ahes, tasa sagla perfect aahe 💐";
+    teddyPop();
     hearts();
 }
 
@@ -212,11 +247,23 @@ function yesClicked(){
     document.getElementById("romantic").classList.remove("hidden");
     hearts();
 }
-
-function showRing(){
+function showSurprise(){
     document.getElementById("romantic").classList.add("hidden");
+    document.getElementById("surprise").classList.remove("hidden");
+    hearts();
+}
+function showRing(){
+    document.getElementById("surprise").classList.add("hidden");
     document.getElementById("ringBox").classList.remove("hidden");
     hearts();
+}
+
+function teddyPop(){
+    let t=document.createElement("div");
+    t.className="teddy";
+    t.innerText="🧸";
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),2500);
 }
 
 function hearts(){
