@@ -86,7 +86,7 @@ button{
 #noBtn{
     background:#eee;
     position:relative;
-    transition:0.15s;
+    transition:0.08s linear; /* faster movement */
 }
 
 .hidden{display:none}
@@ -143,7 +143,7 @@ button{
 
 <div class="buttons" id="buttons">
     <button id="yesBtn" onclick="yesClicked()">Yes 💕</button>
-    <button id="noBtn" onclick="noClicked()" onmouseover="moveNo()">No 😊</button>
+    <button id="noBtn" onclick="noClicked()" onmouseenter="moveNo()">No 😊</button>
 </div>
 
 <div id="noMsg" class="hidden">
@@ -225,8 +225,12 @@ let n=0;
 
 function moveNo(){
     const btn=document.getElementById("noBtn");
-    btn.style.transform=
-    `translate(${Math.random()*200-100}px,${Math.random()*60-30}px)`;
+
+    // faster, more natural movement
+    let x = (Math.random()*300)-150;
+    let y = (Math.random()*100)-50;
+
+    btn.style.transform=`translate(${x}px,${y}px)`;
 
     document.getElementById("question").innerText=
     noMessages[n++%noMessages.length];
@@ -280,4 +284,4 @@ function hearts(){
 </script>
 
 </body>
-</html>
+</html
