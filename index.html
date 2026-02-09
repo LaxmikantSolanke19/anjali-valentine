@@ -37,7 +37,6 @@ body{
     color:white;
     cursor:pointer;
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
-
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -86,7 +85,7 @@ button{
 #noBtn{
     background:#eee;
     position:relative;
-    transition:0.08s linear; /* faster movement */
+    transition:0.08s linear;
 }
 
 .hidden{display:none}
@@ -143,7 +142,12 @@ button{
 
 <div class="buttons" id="buttons">
     <button id="yesBtn" onclick="yesClicked()">Yes 💕</button>
-    <button id="noBtn" onclick="noClicked()" onmouseenter="moveNo()">No 😊</button>
+    <button id="noBtn"
+        onclick="noClicked()"
+        onmouseenter="moveNo()"
+        ontouchstart="moveNo()">
+        No 😊
+    </button>
 </div>
 
 <div id="noMsg" class="hidden">
@@ -210,7 +214,6 @@ function startSite(){
     music.play().catch(()=>{});
 }
 
-/* cute no messages */
 let noMessages=[
 "Arre itka serious nako gheu 😄",
 "Thoda smile kelis tari chaleel 🌸",
@@ -225,13 +228,9 @@ let n=0;
 
 function moveNo(){
     const btn=document.getElementById("noBtn");
-
-    // faster, more natural movement
-    let x = (Math.random()*300)-150;
-    let y = (Math.random()*100)-50;
-
+    let x=(Math.random()*300)-150;
+    let y=(Math.random()*100)-50;
     btn.style.transform=`translate(${x}px,${y}px)`;
-
     document.getElementById("question").innerText=
     noMessages[n++%noMessages.length];
 }
@@ -284,4 +283,4 @@ function hearts(){
 </script>
 
 </body>
-</html
+</html>
